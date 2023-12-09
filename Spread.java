@@ -24,11 +24,8 @@ public String[] spreadCards(){
 	Scanner sc=new Scanner(System.in);
 	String cont="";
 	
-	do{
-			System.out.print("If you are ready push the enter!");
-			System.out.println("");
-			cont=sc.nextLine();
-		}while(!cont.equals(""));
+	Enter enter = new Enter("If you are ready push the enter!");
+        enter.enter(); 
 	
 	do{
 		computerDeck[i]=shuffledDeck[i];
@@ -36,12 +33,7 @@ public String[] spreadCards(){
 		x=x+"x"+" ";
 		
 		System.out.println("This card goes to computer!");
-		System.out.print("Computer Hand :");
-		
-		for(int k=0;k<computerDeck.length;k++) {
-			System.out.print(computerDeck[k]+" ");
-		}System.out.println("");
-		
+		System.out.println("Computer Hand :"+x);
 		System.out.println("Computer Board:Empty");
 		System.out.println("Player Board  :Empty");
 		System.out.print("Player Hand   :");
@@ -52,11 +44,8 @@ public String[] spreadCards(){
 		
 		System.out.println("");
 		
-		do{
-			System.out.print("Please,push the enter to continue!");
-			System.out.println("");
-			cont=sc.nextLine();
-		}while(!cont.equals(""));
+		Enter enter1 = new Enter("Please,push the enter to continue!");
+        enter1.enter(); 
 		
 		userDeck[i]=shuffledDeck[j];
 		
@@ -75,11 +64,8 @@ public String[] spreadCards(){
 		i++;
 		j--;
 		
-		do{
-			System.out.print("Please,push the enter to continue!");
-			System.out.println("");
-			cont=sc.nextLine();
-		}while(!cont.equals(""));
+		Enter enter2 = new Enter("Please,push the enter to continue!");
+        enter2.enter(); 
 		
 		if(userDeck[4]!=null){
 			break;
@@ -87,7 +73,7 @@ public String[] spreadCards(){
 		
 	}while(cont.equals(""));
 	
-	System.out.print("This step is continued.Now, it is time to take extra cards :)");
+	System.out.println("This step is continued.Now, it is time to take special cards :)");
 	
 	for(int t=0;t<5;++t){
 		playCards[t]=userDeck[t];

@@ -32,12 +32,8 @@ public String[] shuffleDeck() {
         shuffledDeck[j] = temp;
         }
 	
-		do{
-			System.out.println("");
-			System.out.print("Please,push the enter to shuffled the deck!");
-			System.out.println("");
-			cont=sc.nextLine();
-		}while(!cont.equals(""));
+		Enter enter = new Enter("Please,push the enter to shuffled the deck!");
+        enter.enter(); 
 	
 		System.out.println("Shuffled Deck:");
         

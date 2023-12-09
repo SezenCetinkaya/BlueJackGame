@@ -16,8 +16,33 @@ public class Test{
 			cont=sc.nextLine();
 		}while(!cont.equals("")); 
 		
-		Spread spreadCards=new Spread();
-		String[] playCards=spreadCards.spreadCards();
+		ExtraCard extraCard= new ExtraCard();
+		
+		System.out.println("First cards go to computer's deck and then you can take extra cards.");
+		
+		String[] userDeck= extraCard.extraCardUser();
+	
+		System.out.println("Computer Hand :x x x x x x x x x x");
+		System.out.println("Computer Board:Empty");
+		System.out.println("Player Board  :Empty");
+		System.out.print("Player Hand   :");
+		
+		for(int i=0;i<5;++i){
+			System.out.print(userDeck[i]);
+		}
+		System.out.println("");
+		
+		String[] computerDeck=extraCard.extraCardComputer();
+		System.out.println("These cards go to you!");
+		
+		System.out.println("Computer Hand :x x x x x x x x x x");
+		System.out.println("Computer Board:Empty");
+		System.out.println("Player Board  :Empty");
+		System.out.print("Player Hand   :");
+		
+		for(int i=0;i<10;++i){
+			System.out.print(userDeck[i]);
+		}
 		
 	}
 }

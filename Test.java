@@ -11,7 +11,10 @@ public class Test{
 		Enter enter = new Enter("Here is the deck!");
         enter.enter(); 
 		
-		ExtraCard extraCard= new ExtraCard();
+		ShuffleCards shuffleCards = new ShuffleCards();
+		String[] shuffledDeck=shuffleCards.shuffleDeck();
+		
+		ExtraCard extraCard= new ExtraCard(shuffledDeck);
 		String[] userDeck= extraCard.extraCardUser();
 		String[] computerDeck=extraCard.extraCardComputer();
 		
@@ -26,6 +29,7 @@ public class Test{
 		
 		for(int i=0;i<5;++i){
 			System.out.print(userDeck[i]);
+			System.out.print(" ");
 		}
 		
 		System.out.println("");
@@ -43,14 +47,15 @@ public class Test{
 		
 		for(int i=0;i<10;++i){
 			System.out.print(userDeck[i]);
+			System.out.print(" ");
 		}
 		System.out.println("");
 		
 		System.out.println("It is time to create gamer's decks to play.");
-		System.out.println("We are selected 4 cards from ypur decks and you will play with these cards :)");
+		System.out.println("We are selected 4 cards from your decks and you will play with these cards :)");
 		
 		Enter enter2 = new Enter("Please, push the enter to see game deck:");
-        enter.enter(); 
+        enter2.enter(); 
 		
 		CreatePlayerDecks createPlayerDecks= new CreatePlayerDecks(computerDeck,userDeck);
 		String[] computerPlayDeck= createPlayerDecks.createComputerPlayDeck();
@@ -64,5 +69,11 @@ public class Test{
 		for(int i=0;i<userPlayDeck.length;++i){
 			System.out.print(userPlayDeck[i]+" ");
 		}
+		System.out.println("");
+		
+		Game game=new Game(computerPlayDeck,userPlayDeck,shuffledDeck);
+		
+		game.game();
+		
 	}
 }

@@ -35,11 +35,13 @@ public String[] shuffleDeck() {
 		Enter enter = new Enter("Please,push the enter to shuffled the deck!");
         enter.enter(); 
 	
-		System.out.println("Shuffled Deck:");
+		System.out.print("Shuffled Deck:");
         
 		for (String card : shuffledDeck) {
-            System.out.println(card);
+            System.out.print(card);
+			System.out.print("/");
         }
+		System.out.println(" ");
 		return shuffledDeck;
 }
 }

@@ -8,22 +8,35 @@ private String[] playCards;
 private char[] colours;
 private String[] signedCardU;
 private String[] signedCardC;
+private String[] shuffledDeck;
 
 public ExtraCard(){
+	shuffledDeck=new String[40];
+	
+	
+}
+
+public ExtraCard(String[] shuffledDeck){
+	this.shuffledDeck=shuffledDeck;
 	colours= new char[]{'B','R','G','Y'};
 	userDeck=new String[10];
 	computerDeck=new String[10];
-	Spread spread=new Spread();
-	playCards=spread.spreadCards();
+	setPlayCards();
 	GetSignedCard getSignedCard = new GetSignedCard();
 	signedCardU=getSignedCard.getSignedCard();
 	signedCardC=getSignedCard.getSignedCard();
+}
+
+public void setPlayCards(){
+	Spread spread=new Spread(shuffledDeck);
+	playCards=spread.spreadCards();
 }
 
 private int plus(){
 	Random r= new Random();
 	int percentage1=r.nextInt(5);
 	int percentage2=r.nextInt(5);
+	
 	if(percentage1==0&&percentage2==0){
 		return 0;
 	}
@@ -69,8 +82,8 @@ public String[] extraCardUser(){
 		default:
 			break;
 	}
-	
-	/*for(int i=0;i<10;++i){
+	/*
+	for(int i=0;i<10;++i){
 		System.out.println(userDeck[i]);
 	}
 	*/
@@ -115,8 +128,8 @@ public String[] extraCardComputer(){
 		default:
 			break;
 	}
-	
-	/*for(int i=0;i<10;++i){
+	/*
+	for(int i=0;i<10;++i){
 		System.out.println(computerDeck[i]);
 	}
 	*/

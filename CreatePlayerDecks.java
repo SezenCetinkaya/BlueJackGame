@@ -22,18 +22,54 @@ public String[] getComputerPlayDeck(){
 }
 
 public String[] createUserPlayDeck(){
-	Random r = new Random();
-	for(int i=0;i<4;++i){
-		userPlayDeck[i]=userDeck[r.nextInt(userDeck.length)];
+	/*for(int i=0;i<10;++i){
+		System.out.println(userDeck[i]);
 	}
+	*/
+	Random r = new Random();
+	int i=0;
+	int k=r.nextInt(userDeck.length);
+	do{
+		if (i == 4) {
+                break;
+            }
+            k = r.nextInt(userDeck.length);
+            if (userDeck[k] != null) {
+                userPlayDeck[i] = userDeck[k];
+                userDeck[k] = null;
+                i++;
+            }
+	
+	}while(true);
+	
+	/*for(int i=0;i<4;++i){
+		System.out.println(userPlayDeck[i]);
+	}
+	*/
 	return userPlayDeck;
 }
 
 public String[] createComputerPlayDeck(){
-	Random r = new Random();
-	for(int i=0;i<4;++i){
-		computerPlayDeck[i]=computerDeck[r.nextInt(computerDeck.length)];
+	
+	/*for(int i=0;i<10;++i){
+		System.out.println(computerDeck[i]);
 	}
+	*/
+	Random r = new Random();
+	int i=0;
+	int k=r.nextInt(computerDeck.length);
+	do{
+		if (i == 4) {
+                break;
+            }
+            k = r.nextInt(computerDeck.length);
+            if (computerDeck[k] != null) {
+                computerPlayDeck[i] = computerDeck[k];
+                computerDeck[k] = null;
+                i++;
+            }
+	
+	}while(true);
 	return computerPlayDeck;
 }
 }

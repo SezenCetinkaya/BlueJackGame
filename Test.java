@@ -113,7 +113,8 @@ public class Test{
 			String string="";
 			String string1="";
 			int count;
-			int counter1=0;
+			int counterC=0;
+			int counterU=0;
 			int keepOn=1;
 			int keepOn1=1;
 			
@@ -125,10 +126,10 @@ public class Test{
 			
 		do{
 			
-			computerBoard[counter1]=shuffledDeck[counter];
-			if(!("+/-".equals(computerBoard[counter1])) || !("x2".equals(computerBoard[counter1]))){
-				if (computerBoard[counter1] != null){
-				string=computerBoard[counter1].substring(1, computerBoard[counter1].length()-1);
+			computerBoard[counterC]=shuffledDeck[counter];
+			if(!("+/-".equals(computerBoard[counterC])) || !("x2".equals(computerBoard[counterC]))){
+				if (computerBoard[counterC] != null){
+				string=computerBoard[counterC].substring(1, computerBoard[counterC].length()-1);
 				sumComputer=sumComputer+ Integer.parseInt(string);
 				}
 			}
@@ -176,11 +177,11 @@ public class Test{
 			
 			
 			if(keepOn1==1){
-			userBoard[counter1]=shuffledDeck[counter];
+			userBoard[counterU]=shuffledDeck[counter];
 			
-			if(!"+/-".equals(userBoard[counter1]) || !"x2".equals(userBoard[counter1])){
-				if (userBoard[counter1] != null){
-					string1=userBoard[counter1].substring(1, userBoard[counter1].length()-1);
+			if(!"+/-".equals(userBoard[counterU]) || !"x2".equals(userBoard[counterU])){
+				if (userBoard[counterU] != null){
+					string1=userBoard[counterU].substring(1, userBoard[counterU].length()-1);
 					sumUser+=Integer.parseInt(string1);
 				}
 			}
@@ -232,7 +233,7 @@ public class Test{
 			
 			do{
 				System.out.println("");
-				System.out.print("Do you want to use any card from your hand? please push 1 to use or push 2 to keep on.");
+				System.out.print("Do you want to use any card from your hand? please push 1 to use any card from your hand or push 2 to keep on.");
 				System.out.println("");
 				keepOn=sc.nextInt();
 			}while(keepOn!=1 && keepOn!=2);
@@ -244,8 +245,28 @@ public class Test{
 				System.out.println("");
 				keepOn=sc.nextInt();
 				}while((keepOn!=1 && keepOn!=2)&&(keepOn!=3 && keepOn!=4));
-			}
+			counterU++;
+			userBoard[counterU]=userPlayDeck[keepOn-1];
 			
+			if(userPlayDeck[keepOn-1]=="+/-"){
+				if(userBoard[counterU-1].substring(0,0)=="-"){
+					string=userBoard[counterU-1].substring(0, userBoard[counterU-1].length()-1);
+					sumUser=sumUser+2*Integer.parseInt(string);
+				}
+				if(userBoard[counterU-1].substring(0,0)=="+"){
+					string=userBoard[counterU-1].substring(0, userBoard[counterU-1].length()-1);
+					sumUser=sumUser-2*Integer.parseInt(string);
+				}
+			}else if(userPlayDeck[keepOn-1]=="x2"){
+				string=userBoard[counterU-1].substring(0, userBoard[counterU-1].length()-1);
+				sumUser=sumUser+ Integer.parseInt(string);
+			}else{
+				if (userPlayDeck[keepOn-1] != null){
+				string=userPlayDeck[keepOn-1].substring(0, userPlayDeck[keepOn-1].length()-1);
+				sumUser=sumUser+ Integer.parseInt(string);
+			}
+			}
+			}
 			do{
 				System.out.println("");
 				System.out.print("Do you want to stand or keep on? please push 2 for stand or push 1 to keep on.");
@@ -262,8 +283,8 @@ public class Test{
 			controler1=true;
 			count=0;
 			counter++;
-			counter1++;
-			
+			counterU++;
+			counterC++;
 		}while((sumComputer<20 && sumUser<20) && (cardCounterC!=9 && cardCounterU!=9));
 		totalGame++;
 		if(sumComputer<=20){
@@ -320,3 +341,4 @@ public class Test{
     }
 		
 	}
+

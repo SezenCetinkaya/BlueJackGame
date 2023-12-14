@@ -70,6 +70,14 @@ public class Test{
 			System.out.print(userPlayDeck[i]+" ");
 		}
 		System.out.println("");
+		System.out.println("");
+		
+		System.out.println("The game is begining!!!");
+		
+		Enter enter3 = new Enter("please push the enter to start");
+        enter3.enter(); 
+		
+		System.out.println("");
 		
 		//Game game=new Game(computerPlayDeck,userPlayDeck,shuffledDeck);
 		
@@ -83,21 +91,40 @@ public class Test{
 		for(int i=0;i<30;++i){
 			shuffledDeck[i]=shuffledDeck1[i+5];
 		}
-		
+		/*
 		for (int i = 0; i < 40; ++i) {
             System.out.println(shuffledDeck1[i]);
         }
+		*/
+		int totalComputer=0;
+		int totalUser=0;
 		int counter=0;
-		int counter1=0;
-		int sumComputer=0;
-		int sumUser=0;
-		
-		boolean controler1=true;
-		int x;
-		String string="";
-		String string1="";
-		int count;
+		int totalGame=1;
 		do{
+			int counterB=0;
+			int cardCounterC=0;
+			int cardCounterU=0;
+			int counterBoardC=0;
+			int counterBoardU=0;
+			int sumComputer=0;
+			int sumUser=0;
+			boolean controler1=true;
+			int x;
+			String string="";
+			String string1="";
+			int count;
+			int counter1=0;
+			int keepOn=1;
+			int keepOn1=1;
+			
+			System.out.println("The set number is: "+totalGame);
+			System.out.println("");
+			System.out.println("Your score is: "+ totalUser);
+			System.out.println("Computer's score is: "+ totalComputer);
+			System.out.println("");
+			
+		do{
+			
 			computerBoard[counter1]=shuffledDeck[counter];
 			if(!("+/-".equals(computerBoard[counter1])) || !("x2".equals(computerBoard[counter1]))){
 				if (computerBoard[counter1] != null){
@@ -147,16 +174,16 @@ public class Test{
 			System.out.println("");
 			System.out.println("");
 			
+			
+			if(keepOn1==1){
 			userBoard[counter1]=shuffledDeck[counter];
 			
 			if(!"+/-".equals(userBoard[counter1]) || !"x2".equals(userBoard[counter1])){
 				if (userBoard[counter1] != null){
-				string1=userBoard[counter1].substring(1, userBoard[counter1].length()-1);
-				sumUser+=Integer.parseInt(string1);
+					string1=userBoard[counter1].substring(1, userBoard[counter1].length()-1);
+					sumUser+=Integer.parseInt(string1);
 				}
 			}
-			counter++;
-			counter1++;
 			x=0;
 			for(int i=0;i<4;++i){
 				if(computerPlayDeck[i]!=null){
@@ -202,10 +229,94 @@ public class Test{
 			}
 			System.out.println("");
 			System.out.println("");
+			
+			do{
+				System.out.println("");
+				System.out.print("Do you want to use any card from your hand? please push 1 to use or push 2 to keep on.");
+				System.out.println("");
+				keepOn=sc.nextInt();
+			}while(keepOn!=1 && keepOn!=2);
+			
+			if(keepOn==1){
+				do{
+				System.out.println("");
+				System.out.print("Please, enter the number of the card that you want to use.1-2-3-4");
+				System.out.println("");
+				keepOn=sc.nextInt();
+				}while((keepOn!=1 && keepOn!=2)&&(keepOn!=3 && keepOn!=4));
+			}
+			
+			do{
+				System.out.println("");
+				System.out.print("Do you want to stand or keep on? please push 2 for stand or push 1 to keep on.");
+				System.out.println("");
+				keepOn1=sc.nextInt();
+			}while(keepOn1!=1 && keepOn1!=2);
+			}
+			
 			System.out.println("1:"+sumComputer);
 			System.out.println("1:"+sumUser);
+	
+			cardCounterC++;
+			cardCounterU++;
+			controler1=true;
+			count=0;
+			counter++;
+			counter1++;
 			
-		}while(sumComputer<20 && sumUser<20);
+		}while((sumComputer<20 && sumUser<20) && (cardCounterC!=9 && cardCounterU!=9));
+		totalGame++;
+		if(sumComputer<=20){
+			totalComputer++;
+			for(int i=0;i<computerBoard.length;++i){
+				if (computerBoard[i] != null){
+					counterBoardC++;
+					if(!("+/-".equals(computerBoard[i])) || !("x2".equals(computerBoard[i]))){
+						string=computerBoard[i].substring(computerBoard[i].length()-2, computerBoard[i].length()-1);
+					}else{
+						break;
+					}
+					if(string.equals("B")){
+						counterB++;
+					}
+				}
+			}
+			if(counterB==counterBoardC){
+				totalComputer=3;
+			}
+		}
+		if(sumUser<=20){
+			totalUser++;
+			for(int i=0;i<userBoard.length;++i){
+				if (userBoard[i] != null){
+					counterBoardU++;
+					if(!("+/-".equals(userBoard[i])) || !("x2".equals(userBoard[i]))){
+							string=userBoard[i].substring(userBoard[i].length()-2, userBoard[i].length()-1);
+					}else{
+						break;
+					}
+					if(string.equals("B")){
+						counterB++;
+					}
+				}
+			}
+			if(counterB==counterBoardU){
+				totalUser=3;
+			}
+		}
+		for(int i=0;i<9;++i){
+			computerBoard[i]=null;
+			userBoard[i]=null;
+		}
+		}while(totalGame!=4);
+		
+		if(totalUser>totalComputer){
+			System.out.println("You are the winner!!!");
+		}else if(totalComputer<totalUser){
+			System.out.println("You are the looser!!!");
+		}else{
+			System.out.println("There is no winner:)");
+		}
     }
 		
 	}

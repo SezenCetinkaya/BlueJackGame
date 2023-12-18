@@ -91,11 +91,11 @@ public class Test{
 		for(int i=0;i<30;++i){
 			shuffledDeck[i]=shuffledDeck1[i+5];
 		}
-		/*
-		for (int i = 0; i < 40; ++i) {
-            System.out.println(shuffledDeck1[i]);
+		
+		for (int i = 0; i < 4; ++i) {
+            System.out.println(computerPlayDeck[i]);
         }
-		*/
+		
 		int totalComputer=0;
 		int totalUser=0;
 		int counter=0;
@@ -128,7 +128,7 @@ public class Test{
 			System.out.println("Your score is: "+ totalUser);
 			System.out.println("Computer's score is: "+ totalComputer);
 			System.out.println("");
-		do{
+		
 		do{
 			if(keepOn0==1){
 			computerBoard[counterC]=shuffledDeck[counter];
@@ -140,7 +140,14 @@ public class Test{
 			}
 			counter++;
 			counterC++;
-			x=computerPlayDeck.length;
+			x=0;
+			
+			for(int i=0;i<4;++i){
+				if(computerPlayDeck[i]!=null){
+					x++;
+				}
+			}
+			
 			System.out.print("Computer Hand :");
 			for(int i=0;i<x;++i){
 				System.out.print("x ");
@@ -184,18 +191,8 @@ public class Test{
 			for(int i=0;i<computerPlayDeck.length;++i){
 				
 				if(computerPlayDeck[i]=="+/-"){
-					if(computerBoard[counterC-1]=="+/-" && computerBoard[counterC-1]=="x2"){
-						if(computerPlayDeck[i].substring(0,0)=="-"){
-							string=computerBoard[counterC-1].substring(0, computerBoard[counterC-1].length()-1);
-							controlSum=sumComputer+2*Integer.parseInt(string);
-						}
-						if(computerPlayDeck[i].substring(0,0)=="+"){
-							string=computerBoard[counterC-1].substring(0, computerBoard[counterC-1].length()-1);
-							controlSum=sumComputer-2*Integer.parseInt(string);
-						}
-					}else{
-						controlSum=sumComputer;
-					}
+					string=computerBoard[counterC-1].substring(0, computerBoard[counterC-1].length()-1);
+					controlSum=sumUser-2*Integer.parseInt(string);
 				}
 				else if(computerPlayDeck[i]=="x2"){
 					string=computerBoard[counterC-1].substring(0, computerBoard[counterC-1].length()-1);
@@ -203,22 +200,29 @@ public class Test{
 				}
 				else{
 					if (computerPlayDeck[i] != null){
-						string=computerPlayDeck[counterC-1].substring(1, computerPlayDeck[counterC-1].length()-1);
+						string=computerPlayDeck[i].substring(0, computerPlayDeck[i].length()-1);
 						controlSum=sumComputer+ Integer.parseInt(string);
 					}
 				}
 				
 				computerControl[i]=20-controlSum;
-				
+				//System.out.println(controlSum);
 			}
+			/*
+			for(int i=0;i<computerControl.length;++i){
+				System.out.println(computerControl[i]);
+			}
+			*/
 			for(int i=0;i<computerControl.length;++i){
 				if(computerControl[i]==0){
-					string=userBoard[i].substring(userBoard[i].length()-2, userBoard[i].length()-1);
+					string=computerPlayDeck[i].substring(computerPlayDeck[i].length()-1);
 					if(string=="B"){
 						keepOn0=0;
-						System.out.println("Computer decided to stand.");
+						System.out.println("Computer decided to use a card from its hand and stand.");
+						System.out.println("");
 						computerBoard[counterC]=computerPlayDeck[i];
-						
+						computerPlayDeck[i]=null;
+						sumComputer=20-computerControl[i];
 						useCard=true;
 					}break;
 				}
@@ -227,13 +231,17 @@ public class Test{
 				for(int i=0;i<computerControl.length;++i){
 					if(computerControl[i]==0){
 						keepOn0=0;
-						System.out.println("Computer decided to stand.");
+						System.out.println("Computer decided to use a card from its hand and stand.");
+						System.out.println("");
 						computerBoard[counterC]=computerPlayDeck[i];
+						computerPlayDeck[i]=null;
+						sumComputer=20-computerControl[i];
 						useCard=true;
 						}break;
 				}
 			}
-			if(!useCard){
+			if(useCard==false){
+				
 				do {
 					swapped = false;
 					for (int i = 1; i < computerControl.length; i++) {
@@ -247,22 +255,45 @@ public class Test{
 				} while (swapped);
 				
 				for(int i=0;i<computerControl.length;++i){
-					if(computerControl[i]<6){
+				//	System.out.println("computer concider this 1.");
+					if(computerControl[i]<3 && computerControl[i]>0){
+						//System.out.println("computer concider this.");
 						keepOn0=0;
-						System.out.println("Computer decided to stand.");
+						System.out.println("Computer decided to use a card from its hand and stand.");
+						System.out.println("");
 						computerBoard[counterC]=computerPlayDeck[i];
+						computerPlayDeck[i]=null;
+						sumComputer=20-computerControl[i];
 						useCard=true;
-					}break;
+						break;
+					}
 				}
 			}
 			if(keepOn1!=1){
 				if(sumComputer>sumUser){
 					keepOn0=0;
 					System.out.println("Computer decided to stand.");
+					System.out.println("");
+				}
+				else{
+					//büyük yapan varsa kullanısın!!!
 				}
 			}
-			
-			
+			if(sumComputer>16){
+				keepOn0=0;
+				System.out.println("Computer decided to stand.");
+				System.out.println("");
+			}
+			for(int i=0;i<4;++i){
+				computerControl[i]=20;
+			}
+		
+		if(counter==31){
+			break;
+		}
+		
+		useCard=false;
+		
 		}
 			
 			if(keepOn1==1){
@@ -336,7 +367,6 @@ public class Test{
 				}while((keepOn!=1 && keepOn!=2)&&(keepOn!=3 && keepOn!=4));
 			counterU++;
 			userBoard[counterU]=userPlayDeck[keepOn-1];
-			userPlayDeck[keepOn-1]=null;
 			
 			if(userPlayDeck[keepOn-1]=="+/-"){
 				if(userBoard[counterU-1].substring(0,0)=="-"){
@@ -358,6 +388,7 @@ public class Test{
 					System.out.println("Sorry, you already used this card.");
 				}
 			}
+			userPlayDeck[keepOn-1]=null;
 			}
 			do{
 				System.out.println("");
@@ -367,8 +398,8 @@ public class Test{
 			}while(keepOn1!=1 && keepOn1!=2);
 			}
 			
-			System.out.println("1:"+sumComputer);
-			System.out.println("1:"+sumUser);
+			System.out.println("Computer Score:"+sumComputer);
+			System.out.println("Your Score:"+sumUser);
 	
 			cardCounterC++;
 			cardCounterU++;
@@ -377,10 +408,15 @@ public class Test{
 			counter++;
 			counterU++;
 			
+			if(counter==31){
+				break;
+			}
+			
+			if((keepOn1==1 || keepOn0==1)==false){
+				break;
+			}
 		}while((sumComputer<20 && sumUser<20) && (cardCounterC!=9 && cardCounterU!=9));
-		}while((keepOn1==1 || keepOn0==1));
-
-		totalGame++;
+		
 		if(sumComputer==20){
 			totalComputer++;
 			for(int i=0;i<computerBoard.length;++i){
@@ -422,19 +458,35 @@ public class Test{
 		if(sumUser<20 && sumComputer<20){
 			if(sumUser>sumComputer){
 				totalUser++;
-			}else{
+			}else if(sumUser<sumComputer){
 				totalComputer++;
+			}else{
+				System.out.println("It is tied game.");
+			}
+		}
+		
+		if(sumUser>20 || sumComputer>20){
+			if(sumUser>20){
+				totalComputer++;
+			}else{
+				totalUser++;
 			}
 		}
 		for(int i=0;i<9;++i){
 			computerBoard[i]=null;
 			userBoard[i]=null;
 		}
-		}while(totalGame!=4);
+		
+		if(counter==31){
+			break;
+		}
+		
+		totalGame++;
+		}while(totalUser!=3 && totalComputer!=3);
 		
 		if(totalUser>totalComputer){
 			System.out.println("You are the winner!!!");
-		}else if(totalComputer<totalUser){
+		}else if(totalComputer>totalUser){
 			System.out.println("You are the looser!!!");
 		}else{
 			System.out.println("There is no winner:)");

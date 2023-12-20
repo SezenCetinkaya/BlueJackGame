@@ -1,10 +1,20 @@
 import java.util.Scanner;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Formatter;
+import java.io.BufferedReader;
 
 public class Test{
 	public static void main(String [] args){
 		Scanner sc=new Scanner(System.in);
 		
 		System.out.println("Hello,it is BlueJack Game!");
+		
+		System.out.println("What is your name?");
+		String name=sc.nextLine();
 		
 		System.out.println("This game includes 3 decks and the game deck contains 4 sets,computer's deck and user's deck");
 		
@@ -491,7 +501,56 @@ public class Test{
 		}else{
 			System.out.println("There is no winner:)");
 		}
+	
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+		String date= dateFormat.format(new Date());
+		
+		String[] gameHistory= new String[10];
+		
+		 
+		try  {
+            BufferedReader reader = new BufferedReader(new FileReader("BlueJackScores.txt"));
+			int index = 0;
+            String line;
+            while ((line = reader.readLine()) != null && index < 10) {
+                gameHistory[index] = line;
+                index++;
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading from file: ");
+        }
+		
+		
+            String updatedHistory = name+totalUser + " - " +"computer:"+ totalComputer + ", Date: " + date;
+            for (int i = 0; i < 9; ++i) {
+                gameHistory[i] = gameHistory[i + 1];
+            }
+            gameHistory[9] = updatedHistory;
+        
+ 
+		Formatter f = null;
+        FileWriter fw = null;
+		
+        try {
+            fw = new FileWriter("BlueJackScores.txt", true);
+            f = new Formatter(fw);
+            for (String history : gameHistory) {
+                if (history != null) {
+                    f.format("%s%n", history);
+                }
+            }
+			
+        } catch (Exception e) {
+            System.err.println("Something went wrong.");
+        } finally {
+           
+                if (f != null) {
+                    f.close(); 
+           
+        }
     }
+		
+	}
 		
 	}
 

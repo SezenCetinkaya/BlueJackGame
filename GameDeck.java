@@ -16,7 +16,7 @@ public String[] createDeck(){
 	
 	for (String c : colour) {
         for (String n : number) {
-            card = '+'+String.valueOf(n)+ String.valueOf(c);
+            card = '+'+n+ c;
             deck[row] = card;
             row++;
         }	

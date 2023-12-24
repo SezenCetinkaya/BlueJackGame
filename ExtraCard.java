@@ -8,16 +8,14 @@ private String[] playCards;
 private char[] colours;
 private String[] signedCardU;
 private String[] signedCardC;
-private String[] shuffledDeck;
+private String[] shuffledDeck1;
 
 public ExtraCard(){
-	shuffledDeck=new String[40];
-	
-	
+	shuffledDeck1=new String[40];
 }
 
 public ExtraCard(String[] shuffledDeck){
-	this.shuffledDeck=shuffledDeck;
+	shuffledDeck1=shuffledDeck;
 	colours= new char[]{'B','R','G','Y'};
 	userDeck=new String[10];
 	computerDeck=new String[10];
@@ -28,7 +26,7 @@ public ExtraCard(String[] shuffledDeck){
 }
 
 public void setPlayCards(){
-	Spread spread=new Spread(shuffledDeck);
+	Spread spread=new Spread(shuffledDeck1);
 	playCards=spread.spreadCards();
 }
 

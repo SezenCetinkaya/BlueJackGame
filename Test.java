@@ -609,7 +609,7 @@ public class Test{
 			}else if(sumUser<sumComputer){
 				totalComputer++;
 			}else if(sumUser==20 && sumComputer==20){
-				System.out.println("It is tied game. No oane win.");
+				System.out.println("It is tied game. No one win.");
 				totalUser--;
 				totalComputer--;
 			}else{
@@ -619,8 +619,12 @@ public class Test{
 		
 		if(sumUser>20 && sumComputer<20){
 			totalComputer++;
-		}else if(sumUser>20 && sumUser<20){
+			System.out.println("You are busted.");
+		}
+		
+		if(sumComputer>20 && sumUser<20){
 			totalUser++;
+			System.out.println("Computer is busted.");
 		}
 		
 		for(int i=0;i<9;++i){
@@ -669,11 +673,11 @@ public class Test{
         }
 		
 		
-            String updatedHistory = name+totalUser + " - " +"computer:"+ totalComputer + ", Date: " + date;
-            for (int i = 0; i < 9; ++i) {
-                gameHistory[i] = gameHistory[i + 1];
-            }
-            gameHistory[9] = updatedHistory;
+        String updatedHistory = name+totalUser + " - " +"computer:"+ totalComputer + ", Date: " + date;
+        for (int i = 0; i < 9; ++i) {
+            gameHistory[i] = gameHistory[i + 1];
+        }
+        gameHistory[9] = updatedHistory;
         
  
 		Formatter f = null;

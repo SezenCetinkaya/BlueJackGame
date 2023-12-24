@@ -12,7 +12,7 @@ public class Test{
 			System.out.println(" ---------------------------------------------------------");
 			String str1="                                          ";
 			String str2="";
-			int x=0;
+			
 			for(int i=0;i<4;++i){
 				if(computerPlayDeck[i]!=null){
 					str2="x ";
@@ -208,27 +208,24 @@ public class Test{
 		int totalGame=1;
 		int[] computerControl=new int[4];
 		do{
-			int counterB=0;
-			int counterBoardC=0;
-			int counterBoardU=0;
-			int sumComputer=0;
-			int sumUser=0;
-			boolean controler1=true;
-			int x;
-			String string="";
-			String string1="";
-			int count;
-			int counterC=0;
-			int counterU=0;
-			int keepOn=1;
-			int keepOn1=1;
-			int keepOn0=1;
-			int loopUsedCard=0;
-			int controlSum=0;
-			int controlI=0;
-			int useThisCard=1000;
-			boolean useCard=false;
-			boolean swapped;
+			int counterB=0;// It is for control the number of Blue cards at the board decks.
+			int counterBoardC=0;// It is for control the number of all cards at the computer board.
+			int counterBoardU=0;// It is for control the number of all cards at the user board.
+			int sumComputer=0;// It is for calculating the total of the cards at the computer Board.
+			int sumUser=0;// It is for calculating the total of the cards at the user Board.
+			String string="";// It is for finding the numerical value of the cards.
+			String string1="";// It is for finding the numerical value of the cards.
+			int counterC=0;// It is for the place the computerBoard array. 
+			int counterU=0;// It is for the place the userBoard array.
+			int keepOn=1;// It is for using a card from user hand.
+			int keepOn1=1;// It is for controling turn of the user.
+			int keepOn0=1;// It is for controling turn of the computer.
+			int loopUsedCard=0;// It is for checking if the selected card can usability.
+			int controlSum=0;// It is for checking th sum for computer strategy.
+			int controlI=0;// It is for using correct card.
+			int useThisCard=1000;// It is for using a card from computer hand .
+			boolean useCard=false;// It is for checking if any card used at the same turn.
+		
 			
 			str1="           ";
 			System.out.println("|                               |");
@@ -258,7 +255,7 @@ public class Test{
 			
 		do{
 			if(keepOn1==1){
-			userBoard[counterU]=shuffledDeck[counter];
+			userBoard[counterU]=shuffledDeck[counter];// giving a card from shuffled deck.
 			counter++;
 			counterU++;
 			if(!"+/-".equals(userBoard[counterU-1]) || !"x2".equals(userBoard[counterU-1])){
@@ -267,7 +264,7 @@ public class Test{
 					sumUser+=Integer.parseInt(string1);
 				}
 			}
-			
+			// calculating the new total of the user board.
 			show(computerPlayDeck,computerBoard,userBoard,userPlayDeck);
 			
 			do{
@@ -276,7 +273,7 @@ public class Test{
 				System.out.println("");
 				keepOn=sc.nextInt();
 			}while(keepOn!=1 && keepOn!=2);
-			
+			// there is a loop for checking the user write a correct number.
 			if(keepOn==1){
 				do{
 				do{
@@ -285,11 +282,12 @@ public class Test{
 				System.out.println("");
 				keepOn=sc.nextInt();
 				}while((keepOn!=1 && keepOn!=2)&&(keepOn!=3 && keepOn!=4));
-			
+			// there is a loop for checking the user write a correct number.
 			if(userPlayDeck[keepOn-1]!="used"){
 				userBoard[counterU]=userPlayDeck[keepOn-1];
 				counterU++;
 			}
+			//checking and using a card from user hand.
 			
 			if(userPlayDeck[keepOn-1].equals("+/-")){
 				loopUsedCard=0;
@@ -316,13 +314,13 @@ public class Test{
 				}else{
 					System.out.println("Sorry, you already used this card.");
 					System.out.println("Do you stil want to use any card from your hand?(push 1 to use or push 2 to skip.)");
-					loopUsedCard=sc.nextInt();
+					loopUsedCard=sc.nextInt();// if the user still want to use any card from hand.
 				}
 			}
 			}while(loopUsedCard==1);
-			
+			// calculating the new total of the user board.
 			userPlayDeck[keepOn-1]="used";
-			
+			// control the usability of a card.
 			show(computerPlayDeck,computerBoard,userBoard,userPlayDeck);
 			
 			System.out.println("");
@@ -335,16 +333,16 @@ public class Test{
 				System.out.println("");
 				keepOn1=sc.nextInt();
 			}while(keepOn1!=1 && keepOn1!=2);
-			
+			// there is a loop for checking the user write a correct number.
 			if(counter==30){
 				System.out.println("The cards are finished.Soo, the game is over.");
 				break;
 			}
-		
+			// If the cards are finished the do-while loop will break.
 			}
 			
 			if(keepOn0==1){
-			computerBoard[counterC]=shuffledDeck[counter];
+			computerBoard[counterC]=shuffledDeck[counter];// giving a card from shuffled deck.
 			
 			if(!("+/-".equals(computerBoard[counterC])) || !("x2".equals(computerBoard[counterC]))){
 				if (computerBoard[counterC] != null){
@@ -352,6 +350,7 @@ public class Test{
 				sumComputer=sumComputer+ Integer.parseInt(string);
 				}
 			}
+			// calculating the new total of the user board.
 			counter++;
 			counterC++;
 		
@@ -383,6 +382,7 @@ public class Test{
 				
 				computerControl[i]=20-controlSum;
 				//System.out.println(controlSum);
+				// checking the difference possiable total of the user board and 20.
 			}
 			/*
 			for(int i=0;i<computerControl.length;++i){
@@ -393,6 +393,7 @@ public class Test{
 				System.out.println(computerPlayDeck[i]);
 			}
 			*/
+			
 			for(int i=0;i<computerControl.length;++i){
 				//System.out.println("computer concider this.");
 				if(computerControl[i]==0){
@@ -414,7 +415,7 @@ public class Test{
 						}break;
 					}
 				}
-				
+				// checking if there is any blue card that computer can use.
 				if(!useCard){
 					for(int i=0;i<computerControl.length;++i){
 						if(computerControl[i]==0){
@@ -434,6 +435,7 @@ public class Test{
 							}break;
 					}
 				}
+				// checking if there is any card that computer can use.
 				if(!useCard){
 					for (int i = 0; i < computerControl.length; i++) {
 						if (computerControl[i]>0 && computerControl[i]<3) {
@@ -444,14 +446,14 @@ public class Test{
 						}
 					}
 					
-					
+					// checking if there is any card that computer can use.If there, it will use it next lines.
 					if(useThisCard!=1000){
 						//System.out.println("computer concider this.");
 						keepOn0=0;
 						System.out.println("");
 						System.out.println("Computer decided to use a card from its hand.");
 						System.out.println("");
-						x=0;
+						
 						computerBoard[counterC]=computerPlayDeck[controlI];
 						counterC++;
 						computerPlayDeck[controlI]=null;
@@ -463,7 +465,7 @@ public class Test{
 						//System.out.println(useThisCard);
 					}
 				}
-				
+				// ıf the user stand computer checking the situation and it will stand or use a card to win.
 				if(keepOn1!=1){
 					if(sumComputer>sumUser){
 						keepOn0=0;
@@ -478,7 +480,7 @@ public class Test{
 									System.out.println("");
 									System.out.println("Computer decided to use a card from its hand.");
 									System.out.println("");
-									x=0;
+									
 									computerBoard[counterC]=computerPlayDeck[i];
 									counterC++;
 									computerPlayDeck[i]=null;
@@ -499,7 +501,7 @@ public class Test{
 					System.out.println("Computer decided to stand.");
 					System.out.println("");
 				}
-				
+				// If computer total between 16 and 21, it should stand.
 				for(int i=0;i<4;++i){
 					computerControl[i]=20;
 				}
@@ -535,9 +537,6 @@ public class Test{
 				System.out.println(" ------------------------------- ");
 				
 				//System.out.println(counter);
-		
-				controler1=true;
-				count=0;
 				
 				useThisCard=1000;
 				
@@ -545,23 +544,23 @@ public class Test{
 					System.out.println("The cards are finished.Soo, the game is over.");
 					break;
 				}
-				
+					// If the cards are finished the do-while loop will break.
 				if((keepOn1==1 || keepOn0==1)==false){
 					break;
 				}
-				
+					// ıf both gamers stand,the do-while loop will break.
 				if(keepOn0!=1){
 					if(counterC>=9 ){
 						break;
 					}
 				}
-				
+				// ıf there is 9 cards at the boards, the do-while loop will and.
 				if(keepOn0!=1){
 					if(counterU>=9){
 						break;
 					}
 				}
-				
+				// ıf there is 9 cards at the boards, the do-while loop will and.
 		}while((sumComputer<20 && sumUser<20)&& (counterC != 9 && counterU != 9));
 		
 		if(sumComputer==20){
@@ -575,7 +574,7 @@ public class Test{
 						break;
 					}
 					if(string.equals("B")){
-						counterB++;
+						counterB++;// checking for the card's colors.
 					}
 				}
 			}
@@ -594,7 +593,7 @@ public class Test{
 						break;
 					}
 					if(string.equals("B")){
-						counterB++;
+						counterB++;// checking for the card's colors.
 					}
 				}
 			}
@@ -610,8 +609,8 @@ public class Test{
 				totalComputer++;
 			}else if(sumUser==20 && sumComputer==20){
 				System.out.println("It is tied game. No one win.");
-				totalUser--;
-				totalComputer--;
+				totalUser--;  // it increase wrongly at the past lines.
+				totalComputer--; // it increase wrongly at the past lines.
 			}else{
 				System.out.println("It is tied game. No one win.");
 			}
@@ -631,12 +630,12 @@ public class Test{
 			computerBoard[i]=null;
 			userBoard[i]=null;
 		}
-		
+		// to use same array at the new set.
 		if(counter==30){
 			System.out.println("The cards are finished.Soo, the game is over.");
 			break;
 		}
-		
+		// If the cards are finished the do-while loop will break.
 		totalGame++;
 		}while(totalUser!=3 && totalComputer!=3);
 		
@@ -656,12 +655,12 @@ public class Test{
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 		String date= dateFormat.format(new Date());
-		
+		// to use the system date.
 		String[] gameHistory= new String[10];
 		
 		 
 		try  {
-            BufferedReader reader = new BufferedReader(new FileReader("BlueJackScores.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("BlueJackScores.txt"));// read line by line.
 			int index = 0;
             String line;
             while ((line = reader.readLine()) != null && index < 10) {
@@ -678,7 +677,7 @@ public class Test{
             gameHistory[i] = gameHistory[i + 1];
         }
         gameHistory[9] = updatedHistory;
-        
+        // if there is 10 game history, it should delate first one.
  
 		Formatter f = null;
         FileWriter fw = null;
@@ -701,6 +700,7 @@ public class Test{
            
         }
     }
+	// to write the history to a file.
 		
 	}
 		
